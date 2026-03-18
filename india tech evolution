@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndiaTech Evolution • 1947–2026+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --orange: #ff6600;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #ff6600 0%, #00b894 100%);
+        }
+
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff6600, #00b894);
+            opacity: 0.3;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #ff6600;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .sector-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sector-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgb(255 102 0 / 0.25);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="tail-container bg-zinc-950 text-white">
+
+    <!-- NAVBAR -->
+    <nav class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-500 rounded-2xl flex items-center justify-center text-2xl">🇮🇳</div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tighter">IndiaTech<span class="text-orange-500">Evolution</span></h1>
+                    <p class="text-xs text-zinc-500 -mt-1">1947 — 2026+</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#overview" class="hover:text-orange-500 transition">Overview</a>
+                <a href="#sectors" class="hover:text-orange-500 transition">Sectors</a>
+                <a href="#timeline" class="hover:text-orange-500 transition">Timeline</a>
+                <a href="#growth" class="hover:text-orange-500 transition">Growth Charts</a>
+                <a href="#research" class="hover:text-orange-500 transition">Research Hub</a>
+            </div>
+            <a href="https://www.isro.gov.in" target="_blank"
+               class="bg-orange-500 hover:bg-orange-600 px-6 py-2.5 rounded-2xl text-sm font-semibold flex items-center gap-2 transition">
+                <i class="fa-solid fa-rocket"></i>
+                Visit ISRO
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-lg px-5 py-1.5 rounded-3xl text-sm mb-6">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                </span>
+                LIVE • MARCH 2026
+            </div>
+            <h2 class="text-7xl md:text-8xl font-bold tracking-tighter leading-none mb-4">
+                INDIA'S TECH<br>REVOLUTION
+            </h2>
+            <p class="max-w-2xl mx-auto text-2xl text-white/90 mb-10">
+                From the first rocket in Thumba to Chandrayaan-3 landing on the Moon —<br>
+                tracing 80 years of exponential growth across every engineering discipline
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#sectors" 
+                   class="bg-white text-zinc-950 hover:bg-orange-100 font-semibold px-10 py-4 rounded-3xl text-lg flex items-center gap-3 transition">
+                    Explore All Sectors
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+                <a href="#timeline" 
+                   class="border-2 border-white/80 hover:border-white font-semibold px-10 py-4 rounded-3xl text-lg transition">
+                    Full Timeline
+                </a>
+            </div>
+        </div>
+        
+        <!-- floating badges -->
+        <div class="absolute bottom-10 left-10 bg-white/10 backdrop-blur-lg rounded-3xl px-6 py-3 text-sm flex items-center gap-3">
+            <div class="text-3xl">🚀</div>
+            <div>
+                <div class="font-bold">ISRO</div>
+                <div class="text-xs text-white/70">89 satellites in orbit</div>
+            </div>
+        </div>
+        <div class="absolute top-20 right-20 bg-white/10 backdrop-blur-lg rounded-3xl px-6 py-3 text-sm flex items-center gap-3">
+            <div class="text-3xl">☀️</div>
+            <div>
+                <div class="font-bold">Solar</div>
+                <div class="text-xs text-white/70">110+ GW installed</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUICK STATS BAR -->
+    <div class="bg-zinc-900 py-6">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="stat-number text-4xl font-bold text-orange-500">₹28.4L Cr</div>
+                <div class="text-zinc-400 text-sm">IT &amp; BPM Exports (FY25)</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl font-bold text-orange-500">110 GW</div>
+                <div class="text-zinc-400 text-sm">Solar Capacity (Mar 2026)</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl font-bold text-orange-500">7.8 GW</div>
+                <div class="text-zinc-400 text-sm">Nuclear Capacity (Operational)</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl font-bold text-orange-500">15.2 Bn</div>
+                <div class="text-zinc-400 text-sm">UPI Transactions/Month</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERVIEW TABLE -->
+    <section id="overview" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold text-center mb-12">Key Sectors &amp; National Goals</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-zinc-900">
+                        <th class="p-6 font-semibold text-orange-400">Sector</th>
+                        <th class="p-6 font-semibold text-orange-400">Essential Branch</th>
+                        <th class="p-6 font-semibold text-orange-400">Key Goal for India</th>
+                        <th class="p-6 font-semibold text-orange-400">2026 Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-zinc-800 text-lg">
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Finance &amp; Tech</td>
+                        <td class="p-6">CSE / AI &amp; ML</td>
+                        <td class="p-6 text-emerald-400">UPI, Digital India, IT Exports</td>
+                        <td class="p-6">₹28.4 Lakh Cr exports • UPI #1 global</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Manufacturing</td>
+                        <td class="p-6">Mechanical / ECE</td>
+                        <td class="p-6 text-emerald-400">Semiconductor chips, Atmanirbhar Bharat</td>
+                        <td class="p-6">₹1.5 Lakh Cr PLI approved • 5 fabs under construction</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Infrastructure</td>
+                        <td class="p-6">Civil / Electrical</td>
+                        <td class="p-6 text-emerald-400">Smart Cities, High-speed Rail, Grid Stability</td>
+                        <td class="p-6">Vande Bharat 200+ trains • 500 GW non-fossil target</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Sustainability</td>
+                        <td class="p-6">Renewable / EV Tech</td>
+                        <td class="p-6 text-emerald-400">Green Hydrogen, Solar Power, Clean Air</td>
+                        <td class="p-6">110 GW Solar • 15 GW Green H₂ projects</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Health</td>
+                        <td class="p-6">Biotech / Biomedical</td>
+                        <td class="p-6 text-emerald-400">Low-cost Healthcare, Vaccine R&amp;D</td>
+                        <td class="p-6">World’s largest vaccine producer • Serum, Bharat Biotech</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Space Engineering</td>
+                        <td class="p-6">Aerospace / ISRO</td>
+                        <td class="p-6 text-emerald-400">Lunar &amp; Mars missions, Gaganyaan</td>
+                        <td class="p-6">Chandrayaan-3 success • Aditya-L1 • 4th nation on Moon</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Nuclear Engineering</td>
+                        <td class="p-6">Nuclear / Atomic</td>
+                        <td class="p-6 text-emerald-400">Clean baseload power</td>
+                        <td class="p-6">7.8 GW operational • 22 GW target by 2032</td>
+                    </tr>
+                    <tr class="hover:bg-zinc-900/50 transition">
+                        <td class="p-6 font-medium">Metals &amp; Mining</td>
+                        <td class="p-6">Metallurgy / Mining</td>
+                        <td class="p-6 text-emerald-400">Critical minerals self-reliance</td>
+                        <td class="p-6">KABIL formed • Lithium auctions started</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTORS GRID -->
+    <section id="sectors" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Deep Dive into Every Branch</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Tech -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center text-3xl mb-6">💻</div>
+                    <h3 class="text-2xl font-bold mb-2">Computer Science &amp; AI/ML</h3>
+                    <p class="text-zinc-400 mb-6">UPI, Aadhaar, ONDC, India Stack — the world’s largest digital public infrastructure</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between"><span class="text-zinc-400">2016</span><span class="font-medium">UPI Launch</span></div>
+                        <div class="flex justify-between"><span class="text-zinc-400">2023</span><span class="font-medium">ChatGPT moment in India</span></div>
+                        <div class="flex justify-between"><span class="text-zinc-400">2026</span><span class="font-medium text-emerald-400">15 Bn UPI txns/month</span></div>
+                    </div>
+                </div>
+
+                <!-- Space -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center text-3xl mb-6">🚀</div>
+                    <h3 class="text-2xl font-bold mb-2">Space Engineering (ISRO)</h3>
+                    <p class="text-zinc-400 mb-6">From SLV-3 failure (1979) to 4th country to land on Moon (2023)</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between"><span class="text-zinc-400">2014</span><span class="font-medium">Mangalyaan (Mars)</span></div>
+                        <div class="flex justify-between"><span class="text-zinc-400">2023</span><span class="font-medium">Chandrayaan-3</span></div>
+                        <div class="flex justify-between"><span class="text-zinc-400">2026</span><span class="font-medium text-emerald-400">Gaganyaan crewed mission prep</span></div>
+                    </div>
+                </div>
+
+                <!-- Nuclear + Power -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center text-3xl mb-6">⚛️</div>
+                    <h3 class="text-2xl font-bold mb-2">Nuclear &amp; Power Engineering</h3>
+                    <p class="text-zinc-400 mb-6">Tarapur (1969) → 22 GW target. Thermal + Solar + Nuclear mix</p>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-zinc-900 p-4 rounded-2xl">
+                            <div class="text-xs text-zinc-400">NUCLEAR</div>
+                            <div class="text-3xl font-bold">7.8 GW</div>
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-2xl">
+                            <div class="text-xs text-zinc-400">SOLAR</div>
+                            <div class="text-3xl font-bold">110 GW</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mechanical / Manufacturing -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-amber-500 rounded-2xl flex items-center justify-center text-3xl mb-6">⚙️</div>
+                    <h3 class="text-2xl font-bold mb-2">Mechanical &amp; Manufacturing</h3>
+                    <p class="text-zinc-400">PLIs, Semiconductor Mission, EV battery plants</p>
+                    <div class="mt-8 text-xs uppercase tracking-widest text-orange-400">Atmanirbhar Bharat 2.0</div>
+                </div>
+
+                <!-- Chemical / Green Hydrogen -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-cyan-500 rounded-2xl flex items-center justify-center text-3xl mb-6">🧪</div>
+                    <h3 class="text-2xl font-bold mb-2">Chemical Engineering</h3>
+                    <p class="text-zinc-400">Green Hydrogen Mission — 5 MMT target by 2030</p>
+                </div>
+
+                <!-- Metals & Mining -->
+                <div class="sector-card bg-zinc-800 rounded-3xl p-8">
+                    <div class="w-14 h-14 bg-lime-500 rounded-2xl flex items-center justify-center text-3xl mb-6">⛏️</div>
+                    <h3 class="text-2xl font-bold mb-2">Metals &amp; Mining</h3>
+                    <p class="text-zinc-400">Critical Minerals Mission, Lithium &amp; Rare Earth auctions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GROWTH CHARTS -->
+    <section id="growth" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold text-center mb-12">Exponential Growth Visualized</h2>
+        <div class="grid md:grid-cols-2 gap-10">
+            
+            <!-- Solar -->
+            <div class="bg-zinc-900 rounded-3xl p-8">
+                <h3 class="font-semibold text-orange-400 mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-sun"></i>
+                    Solar Power Capacity (GW)
+                </h3>
+                <canvas id="solarChart" height="140"></canvas>
+            </div>
+
+            <!-- IT Exports -->
+            <div class="bg-zinc-900 rounded-3xl p-8">
+                <h3 class="font-semibold text-orange-400 mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-laptop"></i>
+                    IT &amp; BPM Exports (₹ Lakh Cr)
+                </h3>
+                <canvas id="itChart" height="140"></canvas>
+            </div>
+
+            <!-- Nuclear -->
+            <div class="bg-zinc-900 rounded-3xl p-8">
+                <h3 class="font-semibold text-orange-400 mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-atom"></i>
+                    Nuclear Capacity (GW)
+                </h3>
+                <canvas id="nuclearChart" height="140"></canvas>
+            </div>
+
+            <!-- UPI Transactions -->
+            <div class="bg-zinc-900 rounded-3xl p-8">
+                <h3 class="font-semibold text-orange-400 mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    UPI Transactions (Billion/month)
+                </h3>
+                <canvas id="upiChart" height="140"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">80 Years of Breakthroughs</h2>
+            
+            <div class="timeline max-w-4xl mx-auto">
+                
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">1963</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>ISRO founded (INCOSPAR)</strong> — Thumba Equatorial Rocket Launching Station
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">1969</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Tarapur Atomic Power Station</strong> — India’s first nuclear power plant
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">1980</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>SLV-3 success</strong> — First indigenous satellite launch vehicle
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2008</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Chandrayaan-1</strong> — First lunar probe, discovers water molecules
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2014</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Mangalyaan (MOM)</strong> — India becomes 1st nation to succeed Mars orbit in first attempt
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2016</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>UPI launched by NPCI</strong> — Digital payments revolution begins
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2022</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>National Green Hydrogen Mission</strong> launched
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2023</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Chandrayaan-3</strong> — Vikram lands successfully on Moon’s south pole
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2024–25</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Semiconductor fabs approved</strong> + <strong>110 GW Solar milestone</strong>
+                    </div>
+                </div>
+
+                <div class="timeline-item flex gap-8 items-start">
+                    <div class="timeline-dot"></div>
+                    <div class="w-24 text-right font-mono text-orange-400 shrink-0">2026</div>
+                    <div class="timeline-content bg-zinc-800 p-6 rounded-3xl flex-1">
+                        <strong>Gaganyaan crewed mission target</strong> • 500 GW non-fossil power target on track
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH HUB -->
+    <section id="research" class="max-w-7xl mx-auto px-6 py-20 bg-black">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Official Sources &amp; Live Data</h2>
+                <ul class="space-y-6 text-lg">
+                    <li class="flex gap-4">
+                        <span class="text-orange-500 text-3xl">→</span>
+                        <div>
+                            <a href="https://www.isro.gov.in" target="_blank" class="hover:underline">ISRO Official Website</a>
+                            <div class="text-sm text-zinc-400">Latest missions, launch calendar</div>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-orange-500 text-3xl">→</span>
+                        <div>
+                            <a href="https://mnre.gov.in" target="_blank" class="hover:underline">Ministry of New &amp; Renewable Energy</a>
+                            <div class="text-sm text-zinc-400">Solar, wind, green hydrogen stats</div>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-orange-500 text-3xl">→</span>
+                        <div>
+                            <a href="https://www.niti.gov.in" target="_blank" class="hover:underline">NITI Aayog Atmanirbhar Reports</a>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-orange-500 text-3xl">→</span>
+                        <div>
+                            <a href="https://www.cea.nic.in" target="_blank" class="hover:underline">Central Electricity Authority</a>
+                            <div class="text-sm text-zinc-400">Power &amp; grid data</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-zinc-900 rounded-3xl p-10">
+                <h3 class="font-bold mb-6 text-orange-400">How to keep this page updated</h3>
+                <p class="text-zinc-400 leading-relaxed">
+                    All numbers and milestones are current as of March 2026. Simply edit the JavaScript arrays in the &lt;script&gt; section at the bottom to reflect new data from government portals. 
+                    The page is 100% self-contained — no backend required.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 text-center text-zinc-400 text-sm">
+            Built with ❤️ for India • Open source HTML template • 
+            <span class="text-orange-500">Update charts &amp; timeline with latest PIB / ISRO / MNRE data</span>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded via CDN
+
+        // Solar Chart
+        new Chart(document.getElementById('solarChart'), {
+            type: 'line',
+            data: {
+                labels: ['2010', '2015', '2020', '2023', '2024', '2026'],
+                datasets: [{
+                    label: 'Solar Capacity (GW)',
+                    data: [0.01, 5, 36, 70, 82, 110],
+                    borderColor: '#ff6600',
+                    backgroundColor: 'rgba(255, 102, 0, 0.1)',
+                    tension: 0.4,
+                    borderWidth: 4
+                }]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#27272a' } } } }
+        });
+
+        // IT Exports Chart
+        new Chart(document.getElementById('itChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2010', '2015', '2020', '2023', '2025'],
+                datasets: [{
+                    label: 'IT Exports (₹ Lakh Cr)',
+                    data: [3.5, 8.7, 15.4, 22.1, 28.4],
+                    backgroundColor: '#22c55e'
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        // Nuclear Chart
+        new Chart(document.getElementById('nuclearChart'), {
+            type: 'line',
+            data: {
+                labels: ['2000', '2010', '2020', '2026'],
+                datasets: [{
+                    label: 'Nuclear Capacity (GW)',
+                    data: [2.5, 4.8, 6.8, 7.8],
+                    borderColor: '#a855f7',
+                    borderWidth: 4
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        // UPI Chart
+        new Chart(document.getElementById('upiChart'), {
+            type: 'line',
+            data: {
+                labels: ['2017', '2020', '2022', '2024', '2026'],
+                datasets: [{
+                    label: 'Transactions (Billion/month)',
+                    data: [0.1, 1.5, 6.2, 13.5, 15.2],
+                    borderColor: '#eab308',
+                    tension: 0.3
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+    </script>
+</body>
+</html>
